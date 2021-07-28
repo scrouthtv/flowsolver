@@ -21,8 +21,8 @@ func TestColorStringer(t *testing.T) {
 	}
 
 	c35 := Color(35 + ColorA)
-	if c35.String() != "35" {
-		t.Errorf("Color35.String() should be Color(35), but is %s", c35.String())
+	if c35.String() != "Color(35)" {
+		t.Errorf("Color35.String() should be Color(35), but is '%s'", c35.String())
 	}
 
 }

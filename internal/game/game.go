@@ -9,6 +9,8 @@ const (
 	Right
 )
 
+var AllDirections = []Direction{Up, Down, Left, Right}
+
 // Game represents a game area.
 // The coordinates are laid out like this:
 // 0 -> x
@@ -21,8 +23,8 @@ type Game struct {
 	height int
 }
 
-// NewGame creates an empty game.
-func NewGame(w int, h int) *Game {
+// New creates an empty game.
+func New(w int, h int) *Game {
 	g := make([][]Color, w)
 	for i := range g {
 		g[i] = make([]Color, h)

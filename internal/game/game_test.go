@@ -23,7 +23,7 @@ func expectColor(t *testing.T, is *Color, should *Color) {
 }
 
 func TestGetSetColor(t *testing.T) {
-	g := NewGame(3, 2)
+	g := New(3, 2)
 
 	g.SetColor(0, 0, ColorA)
 	g.SetColor(1, 1, ColorB)
@@ -45,7 +45,7 @@ func TestGetSetColor(t *testing.T) {
 }
 
 func TestGetNeighbor(t *testing.T) {
-	g := NewGame(3, 3)
+	g := New(3, 3)
 	g.SetColor(1, 1, ColorA)
 
 	//  0 1 2 -> x

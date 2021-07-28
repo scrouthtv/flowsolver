@@ -24,7 +24,7 @@ func (c Color) String() string {
 	}
 
 	if c < 27 {
-		return string('A' + c - 1)
+		return string(c + 'A' - ColorA)
 	}
 
 	return "Color(" + strconv.Itoa(int(c)-1) + ")"
