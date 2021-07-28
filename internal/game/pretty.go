@@ -5,8 +5,10 @@ import "strings"
 func (g *Game) Pretty() string {
 	var out strings.Builder
 
-	for x := 0; x < g.width; x++ {
-		for y := 0; y < g.height; y++ {
+	out.Grow(g.width * g.height)
+
+	for y := 0; y < g.height; y++ {
+		for x := 0; x < g.width; x++ {
 			out.WriteRune(g.getColor(x, y).AsRune())
 		}
 		out.WriteRune('\n')
