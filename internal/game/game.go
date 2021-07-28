@@ -33,6 +33,11 @@ func New(w int, h int) *Game {
 	return &Game{colors: g, width: w, height: h}
 }
 
+// Size returns width/height of the game.
+func (g *Game) Size() (int, int) {
+	return g.width, g.height
+}
+
 // SetColor sets the color at the specified position.
 func (g *Game) SetColor(x int, y int, c Color) {
 	g.colors[x][y] = c
