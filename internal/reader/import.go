@@ -1,8 +1,11 @@
 package reader
 
-import "io"
-import "strings"
-import "github.com/scrouthtv/flowsolver/internal/game"
+import (
+	"io"
+	"strings"
+
+	"github.com/scrouthtv/flowsolver/internal/game"
+)
 
 type Position struct {
 	x int
@@ -43,7 +46,7 @@ func (i *Importer) Import() (*game.Game, error) {
 	i.parseLine(line)
 
 	for {
-		line, err = i.subseqLine(width, false)
+		line, err = i.subseqLine(width, true)
 		if err != nil {
 			return i.finalize(width), nil
 		}
@@ -64,7 +67,6 @@ func (i *Importer) finalize(width int) *game.Game {
 }
 
 func (i *Importer) subseqLine(w int, discardbreaks bool) (string, error) {
-	pre := ""
 	if discardbreaks {
 		r, err := i.read()
 		if err != nil {
@@ -77,7 +79,6 @@ func (i *Importer) subseqLine(w int, discardbreaks bool) (string, error) {
 				return "", err
 			}
 		}
-		pre = string(r)
 	}
 
 	buf := make([]byte, w)
@@ -86,7 +87,7 @@ func (i *Importer) subseqLine(w int, discardbreaks bool) (string, error) {
 		return "", err
 	}
 
-	return pre + string(buf), nil
+	return string(buf), nil
 }
 
 // parseLine extracts all the required colors from the specified line
@@ -94,9 +95,9 @@ func (i *Importer) subseqLine(w int, discardbreaks bool) (string, error) {
 // The current line is taken from the importer.
 func (i *Importer) parseLine(line string) {
 	for x, r := range line {
-		c := game.ColorFromRune(r)
-		if shouldSetColor(c) {
-			i.colors[Position{x, i.y}] = *c
+		c, err := game.ColorFromRune(r)
+		if err == nil && shouldSetColor(c) {
+			i.colors[Position{x: x, y: i.y}] = *c
 		}
 	}
 }
