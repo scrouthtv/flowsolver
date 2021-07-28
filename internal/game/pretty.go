@@ -30,20 +30,28 @@ func (c *Color) AsRune() rune {
 	return '#'
 }
 
-func ColorFromRune(r rune) *Color {
+type ErrInvalidColor struct {
+	r rune
+}
+
+func (e *ErrInvalidColor) Error() string {
+	return "invalid color: " + string(e.r)
+}
+
+func ColorFromRune(r rune) (*Color, error) {
 	if r == 'x' {
-		return nil
+		return nil, nil
 	}
 
 	if r == ' ' {
 		none := ColorNone
-		return &none
+		return &none, nil
 	}
 
 	if r >= 'A' && r <= 'Z' {
 		c := Color(int(r-'A') + int(ColorA))
-		return &c
+		return &c, nil
 	}
 
-	panic("can't read colors > Z")
+	return nil, &ErrInvalidColor{r}
 }
