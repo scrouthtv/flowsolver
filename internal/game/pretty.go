@@ -9,6 +9,7 @@ func (g *Game) Pretty() string {
 		for y := 0; y < g.height; y++ {
 			out.WriteRune(g.getColor(x, y).AsRune())
 		}
+		out.WriteRune('\n')
 	}
 
 	return out.String()
